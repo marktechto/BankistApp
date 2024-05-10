@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bankist.netlify.app</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav>
+      <p class="welcome">Log in to go started</p>
+      <img src="logo.png" class="logo" alt="Logo" />
+      <form class="login">
+        <input
+          type="text"
+          placeholder="User"
+          class="login_input login_input_user"
+        />
+        <input
+          type="text"
+          placeholder="PIN"
+          maxlength="4"
+          login_input
+          login_input_pin
+        />
+        <button class="login_btn">Submit</button>
+      </form>
+    </nav>
+    <main class="app">
+      <!-- BALANXCE -->
+      <div class="balance">
+        <div>
+          <p class="balance_label">Current Balance</p>
+          <p class="balance_date">As of <span class="date">05/03/2037</span></p>
+        </div>
+        <div>
+          <p class="balance-value">0000€</p>
+        </div>
+      </div>
+      <!-- Movement -->
+      <div class="movements">
+        <div class="movements_row">
+          <div class="movements_type movements_type_deposit">1deposit</div>
+          <div class="movements_date">3 days ago</div>
+          <div class="movements_value">4000$</div>
+        </div>
+        <div class="movements_row">
+          <div class="movements_type movements_type_withdrawal">
+            2withdrawal
+          </div>
+          <div class="movements_date">2/4/01/2037</div>
+          <div class="movements_value">-378$</div>
+        </div>
+      </div>
+    </main>
+    <div class="summary">
+      <p class="summary_label">
+        In
+        <span class="summary_value summary_value_in">0000€</span>
+      </p>
+
+      <p class="summary_label">
+        Out
+        <span class="summary_value summary_value_out">000€</span>
+      </p>
+      <p class="summary_label">
+        Interest
+        <span class="summary_value summary_value_interest">000€</span>
+      </p>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
