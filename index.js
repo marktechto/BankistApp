@@ -157,3 +157,9 @@ const totalDepositUsd = movements
 
   .reduce((acc, cur) => (acc += cur), 0);
 console.log(totalDepositUsd);
+console.log("####################FIND METHOD ################");
+const firstWithDrawal = movements.find((mov) => mov < 0);
+console.log(movements);
+console.log(firstWithDrawal);
+const account = accounts.find((acc) => acc.owner === "Temesgen Marie Getu");
+console.log(account);
