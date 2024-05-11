@@ -45,9 +45,10 @@ const account4 = {
   pin: 1111,
 };
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
   containerMovements.innerHTML = "";
-  movements.forEach(function (mov, i) {
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? "deposit" : "withdrawal";
     const html = `<div class="movements_row">
     <div class="movements_type movements_type_${type}">${i + 1}${type}</div>
@@ -103,7 +104,7 @@ const updateUi = function (acc) {
   //Display Balnce
   displayBalance(acc);
 };
-// implement login
+// EVENT HANDLER
 let currentAccount;
 btnLogin.addEventListener("click", function (event) {
   event.preventDefault();
@@ -141,4 +142,62 @@ btnTransfer.addEventListener("click", function (e) {
   //update ui
   updateUi(currentAccount);
 });
-//////////////////////////////////////////////
+// close container
+btnClose.addEventListener("click", function (e) {
+  e.preventDefault();
+  if (
+    currentAccount.userName === inputCloseUsername.value &&
+    currentAccount.pin === Number(inputClosePin.value)
+  ) {
+    const index = accounts.findIndex(
+      (acc) => acc.userName === currentAccount.userName
+    );
+    // Delete Account
+    accounts.splice(index, 1);
+    containerApp.style.opacity = 0;
+  }
+  inputClosePin.value = inputCloseUsername.value = "";
+});
+btnLoan.addEventListener("click", function (e) {
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+  if (
+    amount > 0 &&
+    amount > currentAccount.movements.some((mov) => mov > amount * 0.1)
+  ) {
+    currentAccount.movements.push(amount);
+    updateUi(currentAccount);
+  }
+  inputLoanAmount.value = " ";
+});
+// LECTURES LECTURE LECTURES LECYURES LECTUES LECTURES LECTURES LESDTURELEC//
+// FLAT AND FLATMAP METHOD
+const arr = [[1, 2, 3, 4], [5, 6], 7, 8];
+console.log(arr.flat());
+const accountMovements = accounts.map((acc) => acc.movements);
+console.log(accountMovements);
+const allMovements = accountMovements.flat();
+console.log(allMovements);
+// const overallBalance = allMovements.reduce(acc, (mov) => acc + mov, 0);
+const overallBalance = accounts
+  .flatMap((mov) => mov.movements)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overallBalance);
+let sorted = false;
+btnSort.addEventListener("click", function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
+
+//######### S O R T I N G
+const movementes = [200, 450, -400, -650, -130, 70, 1300];
+const owners = ["Markos", "Bekalu", "Abrham", "Temesgen"];
+console.log(owners.sort());
+console.log(movementes);
+// Asssecending Order
+movementes.sort((a, b) => a - b);
+console.log(`Assending Order:${movementes}`);
+// Dessending Order
+movementes.sort((a, b) => b - a);
+console.log(`Decending Order:${movementes}`);
