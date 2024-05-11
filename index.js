@@ -13,7 +13,7 @@ const btnLoan = document.querySelector(".form_btn_loan");
 const btnClose = document.querySelector(".form_btn_close");
 const btnSort = document.querySelector(".btn_sort");
 const inputLoginUsername = document.querySelector(".login_input_user");
-const inputLoginPin = document.querySelector(".login_input_to");
+const inputLoginPin = document.querySelector(".login_input_pin");
 const inputTransferTo = document.querySelector(".form_input_to");
 const inputTransferAmount = document.querySelector(".form_input_amount");
 const inputLoanAmount = document.querySelector(".form_input_loan_amount");
@@ -56,10 +56,8 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML("afterBegin", html);
   });
 };
-// const user = "Temesgen Abrham Markos";
-const accounts = [account1, account2, account3, account4];
 
-displayMovements(account1.movements);
+const accounts = [account1, account2, account3, account4];
 const creatUserName = function (accs) {
   accs.forEach(function (acc) {
     acc.userName = acc.owner
@@ -72,22 +70,22 @@ const creatUserName = function (accs) {
 creatUserName(accounts);
 console.log(accounts);
 const movements = [200, 450, -400, 3000, -650, -130, 70, -1300];
-const displayBalance = function (movements) {
-  const balance = movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance}€`;
+const displayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${acc.balance}€`;
 };
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (acc) {
+  const incomes = acc.movements
     .filter((mov) => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = `${incomes}€`;
-  const out = movements
+  const out = acc.movements
     .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumOut.textContent = `${Math.abs(out)}€`;
-  const interest = movements
+  const interest = acc.movements
     .filter((mov) => mov > 0)
-    .map((deposit) => (deposit * 1.2) / 100)
+    .map((deposit) => (deposit * acc.interestRate) / 100)
     .filter((int, i, arr) => {
       console.log(arr);
       return int >= 1;
@@ -96,70 +94,50 @@ const calcDisplaySummary = function (movements) {
   labelSumInterest.textContent = `${interest}€`;
 };
 
-calcDisplaySummary(account1.movements);
-displayBalance(account1.movements);
-
-// const eurToUsd = 1.1;
-// const resultPer70 = [39, 43, 59, 69, 28, 56, 24, 67, 22, 46];
-// const totalPer100 = resultPer70.map(function (result) {
-//   return (result += 27);
-// });
-// console.log(`Result Per70 ${resultPer70}`);
-// console.log("------Thanks To Array Map------ ");
-// console.log(`Result Per100 ${totalPer100}`);
-
-// // const amountUSD = amount.map(function (mov) {
-// //   return mov * eurToUsd;
-// // });
-// const amount = [39, 43, 59, 69, 28, 56, 24];
-// const eurToUsd = 1.1;
-
-// let amountUSD = amount.map((mov) => {
-//   return mov * eurToUsd;
-// });
-// console.log(amountUSD);
-
-// amountUSD = amount.map((mov) => mov * eurToUsd);
-// console.log(amountUSD);
-
-//******************* FILTER IN ARRAY ***********
-/*
-const result = [39, 43, 59, 69, 28, 56, 24, 67, 22, 46];
-const selectedResult = result.filter((mov) => mov > 50);
-console.log(`Registered Result:${result}`);
-console.log(`Selected Result:${selectedResult}`);
-const withdrawal = movements.filter((amount) => amount < 0);
-console.log(`Whole Transaction :${movements}`);
-console.log(`Your WithDrawalt:${withdrawal}`);
-*/
-//**********ReducedInArray*****************
-// console.log(movements);
-// const balance = movements.reduce(function (acc, cur, i, arr) {
-//   console.log(`Iteration ${i}:${acc}`);
-//   return acc + cur;
-// }, 100);
-// console.log(`Total Balance:${balance}`);
-// // Get Maximum value in the Array
-// const maxumumValue = movements.reduce(
-//   (max, value) => (max > value ? max : (max = value)),
-//   movements[0]
-// );
-// console.log(`The maximum value is ${maxumumValue}`);
-// Array Method Magic Of Chainning
-const eurToUsd = 1.1;
-// PIPleine
-const totalDepositUsd = movements
-  .filter((mov) => mov > 0)
-  .map((mov, i, arr) => {
-    console.log(arr);
-    return mov * eurToUsd;
-  })
-
-  .reduce((acc, cur) => (acc += cur), 0);
-console.log(totalDepositUsd);
-console.log("####################FIND METHOD ################");
-const firstWithDrawal = movements.find((mov) => mov < 0);
-console.log(movements);
-console.log(firstWithDrawal);
-const account = accounts.find((acc) => acc.owner === "Temesgen Marie Getu");
-console.log(account);
+//UPDATE UI ACCOUNT
+const updateUi = function (acc) {
+  //display Movements
+  displayMovements(acc.movements);
+  //display SUMMARY
+  calcDisplaySummary(acc);
+  //Display Balnce
+  displayBalance(acc);
+};
+// implement login
+let currentAccount;
+btnLogin.addEventListener("click", function (event) {
+  event.preventDefault();
+  currentAccount = accounts.find(
+    (acc) => acc.userName === inputLoginUsername.value
+  );
+  if (currentAccount.pin === Number(inputLoginPin.value)) {
+    // display message,movement,balance,summary;
+    labelWelcome.textContent = `Welcome Dear,${
+      currentAccount.owner.split(" ")[0]
+    }`;
+    inputLoginUsername.value = inputLoginPin.value = "";
+    inputLoginPin.blur();
+    containerApp.style.opacity = 100;
+    //update ui
+    updateUi(currentAccount);
+  }
+});
+btnTransfer.addEventListener("click", function (e) {
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value);
+  const receiverAccount = accounts.find(
+    (acc) => acc.userName === inputTransferTo.value
+  );
+  inputTransferAmount.value = inputTransferTo.value = "";
+  if (
+    amount > 0 &&
+    currentAccount.balance >= amount &&
+    receiverAccount &&
+    receiverAccount?.userName !== currentAccount.userName
+  ) {
+    currentAccount.movements.push(-amount);
+    receiverAccount.movements.push(amount);
+  }
+  //update ui
+  updateUi(currentAccount);
+});

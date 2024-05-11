@@ -17,12 +17,12 @@
           class="login_input login_input_user"
         />
         <input
-          type="text"
+          type="password"
           placeholder="PIN"
+          class="login_input login_input_pin"
           maxlength="4"
-          login_input
-          login_input_pin
         />
+
         <button class="login_btn">Submit</button>
       </form>
     </nav>
@@ -52,22 +52,50 @@
           <div class="movements_value">-378$</div>
         </div>
       </div>
-    </main>
-    <div class="summary">
-      <p class="summary_label">
-        In
-        <span class="summary_value summary_value_in">0000€</span>
-      </p>
+      <div>
+        <div class="transfer_container">
+          <h4>Transfer money</h4>
+          <div class="transfer">
+            <div>
+              <input type="text" name="" id="" class="form_input_to" />
+              <p>Transfer to</p>
+            </div>
+            <div>
+              <input type="number" class="form_input_amount" />
+              <p>amount</p>
+            </div>
+            <div>
+              <button class="form_btn form_btn_transfer">➡️</button>
+            </div>
+          </div>
+        </div>
+        <div class="loan_container">
+          <h4>Request loan</h4>
+          <input type="text" name="" />
+          <button class="form-btn-loan">➡️</button>
+          <p>Amount</p>
+        </div>
+        <div class="form-btn-close">
+          <p>Close account</p>
+        </div>
+      </div>
 
-      <p class="summary_label">
-        Out
-        <span class="summary_value summary_value_out">000€</span>
-      </p>
-      <p class="summary_label">
-        Interest
-        <span class="summary_value summary_value_interest">000€</span>
-      </p>
-    </div>
+      <div class="summary">
+        <p class="summary_label">
+          In
+          <span class="summary_value summary_value_in">0000€</span>
+        </p>
+
+        <p class="summary_label">
+          Out
+          <span class="summary_value summary_value_out">000€</span>
+        </p>
+        <p class="summary_label">
+          Interest
+          <span class="summary_value summary_value_interest">000€</span>
+        </p>
+      </div>
+    </main>
 
     <script src="index.js"></script>
   </body>

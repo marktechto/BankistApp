@@ -5,7 +5,10 @@ body {
   padding: 0;
   background-color: #e2e0e0;
 }
-
+.welcome {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
 nav {
   padding: 5px;
   width: 100%;
@@ -26,10 +29,11 @@ input {
   border: none;
   background-color: #fff;
 }
-.login_button {
+.login_btn {
   border: none;
   margin-left: 6px;
-  font-weight: 600;
+  /* font-weight: 600; */
+  border-radius: 4px;
 }
 .app {
   position: relative;
@@ -41,6 +45,7 @@ input {
   grid-template-rows: auto repeat(3, 9rem) auto;
   gap: 2rem;
   transition: all 1s;
+  opacity: 0;
 }
 .balance_label,
 .balance_date {
@@ -92,7 +97,7 @@ input {
 }
 .summary {
   margin-right: 0;
-  top: 0;
+  top: 350px;
   position: relative;
   bottom: 200px;
   display: flex;
@@ -112,4 +117,27 @@ input {
 }
 .summary_value_out {
   color: rgb(214, 76, 33);
+}
+.transfer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+.transfer_container {
+  padding: 10px;
+  background-color: #fba104;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+.loan_container {
+  padding: 10px;
+  border-radius: 8px;
+  background-color: rgb(19, 237, 168);
+  margin-bottom: 10px;
+}
+.form-btn-loan,
+.form-btn-transfer {
+  border: none;
+  border-radius: 4px;
+  margin-left: 5px;
 }
