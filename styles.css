@@ -1,170 +1,297 @@
-body {
-  color: black;
-  font-size: 1.2rem;
+/*
+ * Use this CSS to learn some intersting techniques,
+ * in case you're wondering how I built the UI.
+ * Have fun! 😁
+ */
+
+* {
   margin: 0;
-  font-family: serif;
   padding: 0;
-  background-color: #e2e0e0;
+  box-sizing: inherit;
 }
-.welcome {
-  font-size: 1.3rem;
-  font-weight: 600;
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
 }
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: #444;
+  background-color: #f3f3f3;
+  height: 100vh;
+  padding: 2rem;
+}
+
 nav {
-  padding: 5px;
-  width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 2rem;
 }
+
+.welcome {
+  font-size: 1.9rem;
+  font-weight: 500;
+}
+
 .logo {
-  width: 50px;
-  margin-top: 20px;
+  height: 5.25rem;
 }
-input {
-  width: 80px;
-  height: 20px;
-  margin-left: 5px;
-  border-radius: 6px;
+
+.login {
+  display: flex;
+}
+
+.login__input {
+  border: none;
+  padding: 0.5rem 2rem;
+  font-size: 1.6rem;
+  font-family: inherit;
   text-align: center;
-  border: none;
-  background-color: #fff;
+  width: 12rem;
+  border-radius: 10rem;
+  margin-right: 1rem;
+  color: inherit;
+  border: 1px solid #fff;
+  transition: all 0.3s;
 }
-.login_btn {
-  border: none;
-  margin-left: 6px;
-  /* font-weight: 600; */
-  border-radius: 4px;
+
+.login__input:focus {
+  outline: none;
+  border: 1px solid #ccc;
 }
+
+.login__input::placeholder {
+  color: #bbb;
+}
+
+.login__btn {
+  border: none;
+  background: none;
+  font-size: 2.2rem;
+  color: inherit;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.login__btn:hover,
+.login__btn:focus,
+.btn--sort:hover,
+.btn--sort:focus {
+  outline: none;
+  color: #777;
+}
+
+/* MAIN */
 .app {
   position: relative;
   max-width: 100rem;
-  margin: 1rem 1rem;
+  margin: 4rem auto;
   display: grid;
-  /* background-color: #fff; */
   grid-template-columns: 4fr 3fr;
-  grid-template-rows: auto repeat(3, 9rem) auto;
+  grid-template-rows: auto repeat(3, 15rem) auto;
   gap: 2rem;
-  transition: all 1s;
+
+  /* NOTE This creates the fade in/out anumation */
   opacity: 0;
+  transition: all 1s;
 }
-.app p {
-  position: relative;
-  font-size: 1rem;
-  font-weight: 600;
-  color: black;
-  bottom: 12px;
-  left: 8px;
-}
-.balance_label,
-.balance_date {
-  margin-left: 20px;
-  color: grey;
-}
-.date {
-  font-weight: 400;
-  color: grey;
-}
-.balance-value {
-  margin-right: 50px;
-  color: black;
-  font-size: 1.5rem;
-  background-color: white;
-}
+
 .balance {
   grid-column: 1 / span 2;
   display: flex;
-  margin-left: 0;
   align-items: flex-end;
   justify-content: space-between;
   margin-bottom: 2rem;
 }
-.movements_row {
-  grid-column: 1 / span 2;
-  display: flex;
-  background-color: #fff;
-  align-items: flex-end;
-  margin-left: 6px;
-  margin-bottom: 2px;
-  justify-content: space-between;
-  border-radius: 10px;
-}
-.movements_type {
-  position: relative;
-  top: 10px;
-  font-family: 1.5rem;
-  width: 100px;
-  color: white;
-  border-radius: 8px;
-  margin: 20px;
 
+.balance__label {
+  font-size: 2.2rem;
+  font-weight: 500;
+  margin-bottom: -0.2rem;
+}
+
+.balance__date {
+  font-size: 1.4rem;
+  color: #888;
+}
+
+.balance__value {
+  font-size: 4.5rem;
+  font-weight: 400;
+}
+
+/* MOVEMENTS */
+.movements {
+  grid-row: 2 / span 3;
+  background-color: #fff;
+  border-radius: 1rem;
+  overflow: scroll;
+}
+
+.movements__row {
+  padding: 2.25rem 4rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.movements__type {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #fff;
+  padding: 0.1rem 1rem;
+  border-radius: 10rem;
+  margin-right: 2rem;
+}
+
+.movements__date {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #666;
+}
+
+.movements__type--deposit {
+  background-image: linear-gradient(to top left, #39b385, #9be15d);
+}
+
+.movements__type--withdrawal {
+  background-image: linear-gradient(to top left, #e52a5a, #ff585f);
+}
+
+.movements__value {
+  font-size: 1.7rem;
+  margin-left: auto;
+}
+
+/* SUMMARY */
+.summary {
+  grid-row: 5 / 6;
+  display: flex;
+  align-items: baseline;
+  padding: 0 0.3rem;
+  margin-top: 1rem;
+}
+
+.summary__label {
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-right: 0.8rem;
+}
+
+.summary__value {
+  font-size: 2.2rem;
+  margin-right: 2.5rem;
+}
+
+.summary__value--in,
+.summary__value--interest {
+  color: #66c873;
+}
+
+.summary__value--out {
+  color: #f5465d;
+}
+
+.btn--sort {
+  margin-left: auto;
+  border: none;
+  background: none;
+  font-size: 1.3rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* OPERATIONS */
+.operation {
+  border-radius: 1rem;
+  padding: 3rem 4rem;
+  color: #333;
+}
+
+.operation--transfer {
+  background-image: linear-gradient(to top left, #ffb003, #ffcb03);
+}
+
+.operation--loan {
+  background-image: linear-gradient(to top left, #39b385, #9be15d);
+}
+
+.operation--close {
+  background-image: linear-gradient(to top left, #e52a5a, #ff585f);
+}
+
+h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 2.5fr 2.5fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 0.4rem 1rem;
+}
+
+/* Exceptions for interst */
+.form.form--loan {
+  grid-template-columns: 2.5fr 1fr 2.5fr;
+}
+.form__label--loan {
+  grid-row: 2;
+}
+/* End exceptions */
+
+.form__input {
+  width: 100%;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.4);
+  font-family: inherit;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #333;
+  padding: 0.3rem 1rem;
+  border-radius: 0.7rem;
+  transition: all 0.3s;
+}
+
+.form__input:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.form__label {
+  font-size: 1.3rem;
   text-align: center;
 }
-.movements_type_deposit {
-  background-color: green;
-}
-.movements_type_withdrawal {
-  background-color: #f70b6d;
-}
-.movements_value {
-  position: relative;
-  bottom: 5px;
-  margin-right: 20px;
-}
-.summary {
-  margin-right: 0;
-  top: 350px;
-  position: relative;
-  bottom: 200px;
-  display: flex;
-}
-.summary_label {
-  margin-left: 1rem;
-  margin-right: 2rem;
-  margin-top: 0px;
-}
-.summary_value {
-  font-size: 1.4rem;
-  font-weight: bold;
-}
-.summary_value_interest,
-.summary_value_in {
-  color: rgb(71, 240, 77);
-}
-.summary_value_out {
-  color: rgb(214, 76, 33);
-}
-.transfer {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: flex-start;
-}
-.transfer_container,
-.loan_container,
-.close_container {
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 7px;
-}
-.transfer_container {
-  background-color: #fba104;
-}
-.loan_container {
-  background-color: rgb(19, 237, 168);
-}
-.close_container {
-  background-color: #f70b6d;
+
+.form__btn {
+  border: none;
+  border-radius: 0.7rem;
+  font-size: 1.8rem;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.3s;
 }
 
-.form_btn,
-.btn_sort {
-  border: none;
-  border-radius: 4px;
-  margin-left: 5px;
+.form__btn:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.8);
 }
-.btn_sort {
-  position: relative;
-  bottom: 10px;
-  width: 100px;
-  height: 50px;
+
+.logout-timer {
+  padding: 0 0.3rem;
+  margin-top: 1.9rem;
+  text-align: right;
+  font-size: 1.25rem;
+}
+
+.timer {
+  font-weight: 600;
 }
